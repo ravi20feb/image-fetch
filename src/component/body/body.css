@@ -1,0 +1,13 @@
+.body{
+    position: absolute;
+   
+    width: 100%;
+    top: 90;
+    
+    min-height: calc(100vh - 5.75rem);
+ 
+
+
+    
+   
+}

@@ -1,0 +1,37 @@
+.sign-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+
+     top: 5rem;
+     bottom: 0;
+}
+
+.singin-content{
+
+    height: 100%;
+    width: 23rem;
+
+
+}
+.from-wrap{
+    padding: 3rem 1rem;
+
+    width: 100%;
+    height: 100%;
+}
+
+.MuiInputBase-input{
+    width: 100%;
+}
+.MuiFormControl-root{
+    width: 100%;
+
+}
+
+.css-ib281g-MuiButtonBase-root-MuiButton-root:hover:hover{
+    border: 1px solid #000;
+
+}
+
