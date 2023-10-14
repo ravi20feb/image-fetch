@@ -1,7 +1,7 @@
 import React from 'react';
 import { createContext } from 'react';
 import {initializeApp} from 'firebase/app'
-import { getAuth,createUserWithEmailAndPassword,GoogleAuthProvider,signInWithPopup } from 'firebase/auth';
+import { getAuth,createUserWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,onAuthStateChanged } from 'firebase/auth';
 import {getDatabase,ref,set} from 'firebase/database'
 import { useContext } from 'react';
 
@@ -41,9 +41,17 @@ export  function FireBaseProvider(props) {
     const signWithGoogle= ()=>{
       return signInWithPopup(FireBaseGetAuth,googleProvider)
     }
+    const oauth = ()=>{
+      return onAuthStateChanged(FireBaseGetAuth,(user)=>{
+     
+        if(user){
+          console.log(user)
+        }
+      })
+    }
 
   return (
-    <FireBaseContext.Provider value={{signUpUserWithEmailAndPassword,putData,signWithGoogle,user}}>
+    <FireBaseContext.Provider value={{signUpUserWithEmailAndPassword,putData,signWithGoogle,user,oauth}}>
         {props.children}
     </FireBaseContext.Provider >
   )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './index.css'
 import { Stack, TextField } from '@mui/material'
 import {Button,Box,Paper,Stack} from '@mui/material'
@@ -73,7 +73,7 @@ export default function SignUp(props) {
   console.log(isPasswordError&&confirmPasswordError)
   console.log(isPasswordError,confirmPasswordError)
 
-
+  useEffect(()=>console.log(firebase.oauth()),[]);
 
 
 
