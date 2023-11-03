@@ -2,24 +2,52 @@
   "name": "image-fetch",
   "version": "1.0.0",
   "description": "image fetch website",
-  "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "parcel build index.html && cp _redirects dist/"
   },
   "author": "ravi",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.52.0",
+    "eslint-plugin-react": "^7.33.2",
+    "events": "^3.3.0",
+    "os-browserify": "^0.3.0",
     "parcel": "^2.9.3",
-    "process": "^0.11.10"
+    "path-browserify": "^1.0.1",
+    "prettier": "^3.0.3",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.12",
     "@mui/material": "^5.14.11",
+    "@mui/system": "^5.14.14",
+    "axios": "^1.5.1",
+    "dotenv": "16.3.1",
     "firebase": "^10.4.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.17.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

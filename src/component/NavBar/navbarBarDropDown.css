@@ -1,0 +1,43 @@
+.menu-wrapper{
+   
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 1.5rem;
+}    
+li{
+    list-style: none;
+}
+.menu-wrapper .menu-contetent-wrapper{
+    
+    width: 6rem;
+    background: #fff;
+    
+    
+}
+.menu-wrapper .menu-contetent-wrapper .list-wrapper{
+    position: relative;
+    border: 1px solid #000;
+    background: #fff;
+    
+    top: 2rem;
+}
+
+li{
+    border-bottom: 1px solid black;
+    margin-top: 5px;
+    text-align: center;
+    height: 2rem;
+    cursor: pointer;
+}
+
+
+
+
+@media screen and  (max-width: 750px) {
+    .menu-wrapper {
+        display: block;
+
+    }
+  
+}

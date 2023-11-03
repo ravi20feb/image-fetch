@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import './index.css'
-import { Stack, TextField } from '@mui/material'
+import { TextField } from '@mui/material'
 import {Button,Box,Paper,Stack} from '@mui/material'
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Facebook, Google } from '@mui/icons-material';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 // import {useFireBase} from "../../../../context/FireBase"
 import { usefirebase } from '../../../../context/FireBase';
@@ -29,6 +31,7 @@ export default function SignUp(props) {
 
     console.log(props)
     console.log(firebase)
+
     
 
     function handleFullName(e){
@@ -73,9 +76,17 @@ export default function SignUp(props) {
   console.log(isPasswordError&&confirmPasswordError)
   console.log(isPasswordError,confirmPasswordError)
 
-  useEffect(()=>console.log(firebase.oauth()),[]);
 
+  useEffect(()=>{
+    // props.isSignin(true)  
+    console.log(props)
+    // console.log(firebase.oauth())
+},
+  []);
 
+if(!firebase.isLogin){
+    return <Navigate to={'/' } />
+}
 
 
 
@@ -88,21 +99,16 @@ export default function SignUp(props) {
               <h2 style={{textAlign: 'center',marginTop: '0.5rem'}}>Sign Up</h2>
               <form className='from-wrap' onSubmit={(e)=>e.preventDefault()}> 
                     <TextField required error={isFullNameError} id="outlined-name" label="Full Name" variant="outlined" inputProps={{maxLength: 50}} sx={{paddingBottom: '1rem'}} value={fullName} helperText={isFullNameError&&"maximum 50 characters is allowed.."} onChange={handleFullName}/>
-                    <TextField required id="outlined-email1" error={isMailError} label="Email"  variant="outlined" value={Mail} helperText={isMailError && 'Enter a valid email address'} sx={{paddingBottom: '1rem' }} onChange={handleMail}/>
-                    <TextField required id="outlined-password1" error={isPasswordError} label="Password"  type="password" value={isPassword} variant="outlined" sx={{paddingBottom: '1rem'}} helperText={isPasswordError && 'Password length should contain minimum 8 characters (at least one capital, small letter and number).'} onChange={handlePassWord} />
-                    <TextField required id="outlined-password2" error={confirmPasswordError} label="Confirm Password"  type="password" variant="outlined" helperText={confirmPasswordError && 'Password does not match.' } value={confirmPassword} onChange={handleConfirmPaasword }/>
-                    <Box component={'p'}  sx={{fontSize: '.75rem',marginBottom: '2rem',marginTop: '.35rem'}}>Already on{'<dev/>?' }? <button type="button" style={{borderWidth: 0,background:'none',color:'#1889A9'}}  onClick={
-                        (e)=>{props.setTrue(!props.isTrue)
-                        console.log('i am singn up')
-                        e.stopPropagation()
-                        
-                        }}>
-                    Log in</button></Box>
+                    <TextField required id="outlined-email1" error={isMailError} label="Email" placeholder='abc@gmail.com'  variant="outlined" value={Mail} helperText={isMailError && 'Enter a valid email address'} sx={{paddingBottom: '1rem' }} onChange={handleMail}/>
+                    <TextField required id="outlined-password1" error={isPasswordError} label="Password" placeholder='Abc1234#'  type="password" value={isPassword} variant="outlined" sx={{paddingBottom: '1rem'}}  helperText={isPasswordError && 'Password length should contain minimum 8 characters (at least one capital, small letter and number).'} onChange={handlePassWord} />
+                    <TextField required id="outlined-password2" error={confirmPasswordError} label="Confirm Password" placeholder='Abc1234#'  type="password" variant="outlined" helperText={confirmPasswordError && 'Password does not match.' } value={confirmPassword} onChange={handleConfirmPaasword }/>
+                    <Box component={'p'}   sx={{fontSize: '.75rem',marginBottom: '2rem',marginTop: '.35rem'}}>Already on{'<dev/>?' }? <Link to={'/login'} style={{borderWidth: 0,background:'none',color:'#1889A9'}}  >
+                    Log in</Link></Box>
                     <Button variant="outlined" type='submit' sx={{width: '100%',color: '#000', border:'1px solid black', }} disabled={!isPasswordError&&!confirmPasswordError?false:true}  onClick={handleSubmit}>Sign Up</Button>
                 <div style={{textAlign:'center' , paddingTop: '0.5rem',fontSize: '.65rem'}}>or sign with  </div> 
                 <Stack sx={{fontSize: '14px'}} spacing={1}>
-                    <Button startIcon={<GitHubIcon />} variant="outlined" color="primary"  sx={{fontSize: '10px'}}> continue with GitHub</Button>
-                    <Button startIcon={<Google />} type='submit' variant="outlined" color="primary"  sx={{fontSize: '10px'}} onClick={(e)=>{firebase.signWithGoogle()}}>continue with Google</Button>
+                    <Button  startIcon={<GitHubIcon />} variant="outlined" color="primary"  sx={{fontSize: '10px'}}> continue with GitHub</Button>
+                    <Button startIcon={<Google />} type='submit' variant="outlined" color="primary"  sx={{fontSize: '10px'}} onClick={()=>{firebase.signWithGoogle()}}>continue with Google</Button>
                     <Button startIcon={<Facebook/>} variant="outlined" color="primary"  sx={{fontSize: '10px'}}>continue with Facebook</Button>
 
 

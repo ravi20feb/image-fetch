@@ -1,22 +1,32 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
 
-body{
+/* Your comment here */
+body {
+  
     font-family: roboto;
-    background: orange;
+    height: 100%;
+
+}
+.root{
+    position: relative;
+    height: 100%;
 }
 
-.app-component-wrapper{
-    display: flex;
-    width: 100%;
-    position: absolute;
-    flex-direction: column;
 
-    min-height: 100vh;
-   
+
+.app-component-wrapper {
+    display: flex;
+  
+    /* position: absolute; */
+    flex-direction: column;
+    height: auto;
+    max-width: 100%;
+    min-width: 18rem;
+    height: 100%;
 
 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import { createContext } from 'react';
 import {initializeApp} from 'firebase/app'
-import { getAuth,createUserWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,onAuthStateChanged } from 'firebase/auth';
+import { getAuth,signOut,createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,onAuthStateChanged } from 'firebase/auth';
 import {getDatabase,ref,set} from 'firebase/database'
 import { useContext } from 'react';
+import { useState,useEffect } from 'react';
 
 const FireBaseContext = createContext(null);
 
@@ -18,7 +19,7 @@ const firebaseConfig = {
 };
 const fireBaseApp= initializeApp(firebaseConfig)
 
-const FireBaseGetAuth = getAuth(fireBaseApp)
+export const FireBaseGetAuth = getAuth(fireBaseApp)
 const user = FireBaseGetAuth.currentUser;
 const database = getDatabase(fireBaseApp)
 const googleProvider = new GoogleAuthProvider()
@@ -32,6 +33,8 @@ export const usefirebase = ()=> useContext(FireBaseContext)
 
 
 export  function FireBaseProvider(props) {
+  const [user,setUser]  = useState(null)
+  const [authStateChanged,setAuthState] = useState(null)
     const putData = (key,data)=>{
         set(ref(database,key),data)
     }
@@ -41,17 +44,27 @@ export  function FireBaseProvider(props) {
     const signWithGoogle= ()=>{
       return signInWithPopup(FireBaseGetAuth,googleProvider)
     }
-    const oauth = ()=>{
-      return onAuthStateChanged(FireBaseGetAuth,(user)=>{
-     
-        if(user){
-          console.log(user)
-        }
-      })
+    const signInWithCredentail = (email,password)=>{
+      return signInWithEmailAndPassword(FireBaseGetAuth,email,password)
     }
+    const  logOut = ()=>{
+      return signOut(FireBaseGetAuth)
+    }
+    
+    useEffect(()=>{
+      onAuthStateChanged(FireBaseGetAuth,(user)=>{
+        setUser(user)
+        if(user){
+          setAuthState(true)
+        }
+        else setAuthState(null)
+      })
+    
+    },[])
+    const  isLogin = authStateChanged ? false : true
 
   return (
-    <FireBaseContext.Provider value={{signUpUserWithEmailAndPassword,putData,signWithGoogle,user,oauth}}>
+    <FireBaseContext.Provider value={{signUpUserWithEmailAndPassword,logOut,signInWithCredentail,putData,signWithGoogle,user,isLogin}}>
         {props.children}
     </FireBaseContext.Provider >
   )
